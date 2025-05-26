@@ -6,6 +6,7 @@ TagManager:
   tags:
   - JumpPlate
   - Ground
+  - AirJump
   layers:
   - Default
   - TransparentFX

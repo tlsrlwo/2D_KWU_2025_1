@@ -24,13 +24,16 @@ public class PlayerCtrl : MonoBehaviour
     private bool            isGrounded;
     private bool            isJumping;
     private bool            hasDashed;
+    private bool            canAirJump;
+
+    [Header("그래플링")]
+    [SerializeField] private float grappleInputBufferTime = 0.2f;                            // 그래플 실행 후 유예 시간 ; 0.2초 (60프레임 기준 12프레임)
+    [SerializeField] private float lastGrappleInputTime = -1f;                               // Time.time 이용 위함. 초기값 없음 설정(-1)
     
     [Header("컴포넌트")]
-    private Rigidbody2D     rb;                                             // 플레이어 rigidbody
-    private TrailRenderer   tr;                                             // 대쉬        
-
-    [SerializeField]
-    private GrapplingSystem grapplingSystem;
+    [SerializeField] private Rigidbody2D     rb;                                             // 플레이어 rigidbody
+    [SerializeField] private TrailRenderer   tr;                                             // 대쉬           
+    [SerializeField] private GrapplingSystem grapplingSystem;
 
     void Start()
     {
@@ -53,9 +56,16 @@ public class PlayerCtrl : MonoBehaviour
     {
         Move();
 
-        if(!isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            lastGrappleInputTime = Time.time;
+        
+        }
+
+        if(!isGrounded && Time.time - lastGrappleInputTime <= grappleInputBufferTime)
         {
             grapplingSystem.TryGrapple();
+            lastGrappleInputTime = -1f;                                     // 다시 인풋 시간 초기화
         }
         if(Input.GetKeyUp(KeyCode.Space))
         {
@@ -77,13 +87,27 @@ public class PlayerCtrl : MonoBehaviour
     private void Move()
     {
         // 땅에서 (기본 점프)
-        if (Input.GetMouseButtonDown(0) && isGrounded)
+        if (Input.GetMouseButtonDown(0) && isGrounded)                                      // 땅에서 점프준비. 점프포스 충전 시작
         {
             clickStartTime = Time.time;
             isCharging = true;
         }
+        // 공중에서 점프 중 마우스 클릭 (점프 추가 오브젝트)
+        else if(Input.GetMouseButtonDown(1) && !isGrounded && canAirJump)
+        {
+            // 공중 점프 수행
+            float jumpForce = minJumpForce;
+            float horizontalJumpForce = maxJumpForce * horizontalJumpForceMultiplier;
 
-        if (Input.GetMouseButtonUp(0) && isCharging)
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(horizontalJumpForce, jumpForce));
+
+            isJumping = true;
+            canAirJump = false;
+        }
+
+
+        if (Input.GetMouseButtonUp(0) && isCharging)                                        
         {
             float clickDuration = Mathf.Min(Time.time - clickStartTime, maxClickTime);      // Math.Min(a,b) a,b 중 더 작은 값
             float normalizedPower = clickDuration / maxClickTime;                           // jumpForce 에 사용
@@ -200,11 +224,21 @@ public class PlayerCtrl : MonoBehaviour
         {
             float jumpForce = maxJumpForce * jumpPlateForceMultiplier;                  // 최대점프값에 발판값으로 증가
             rb.AddForce(Vector2.up * jumpForce);                                        // 새로운 jumpForce변수값 적용
-            isGrounded = false;                                                 // 점프 후 땅에서 떨어짐
+            isGrounded = false;                                                         // 점프 후 땅에서 떨어짐
             isJumping = true;
         }
+        if(other.gameObject.CompareTag("AirJump"))
+        {
+            canAirJump = true;
+        }
     }
-
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("AirJump"))
+        {
+            canAirJump = false;
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Ground"))

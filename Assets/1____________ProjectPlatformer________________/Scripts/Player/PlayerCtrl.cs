@@ -19,6 +19,11 @@ public class PlayerCtrl : MonoBehaviour
     public float            dashForce;
     public float            currentGravityScale;
     public float            dashingTime;                                    // gravityScale 을 0 으로 설정하면 영원히 0이기 때문에 시간을 정해줌
+        
+    [Header("점프상호작용")]                                                 // 추가 점프 상호작용 오브젝트
+    public float            horizontalJumpInteractForce;
+    public float            verticalJumpInteractForce;
+
 
     private bool            isCharging;
     private bool            isGrounded;
@@ -49,7 +54,13 @@ public class PlayerCtrl : MonoBehaviour
             maxJumpForce = maxConfig.ForceValue;  
 
         if (JumpConfigLoad.configDic.TryGetValue("JumpPlate", out var plateConfig))
-            jumpPlateForceMultiplier = plateConfig.Multiplier;   
+            jumpPlateForceMultiplier = plateConfig.Multiplier;
+
+        if (JumpConfigLoad.configDic.TryGetValue("AirJump", out var airJumpConfig))
+        {
+            verticalJumpInteractForce = airJumpConfig.ForceValue;
+            horizontalJumpInteractForce = airJumpConfig.ForceValue * airJumpConfig.Multiplier;
+        }
     }
 
     void Update()
@@ -58,8 +69,7 @@ public class PlayerCtrl : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            lastGrappleInputTime = Time.time;
-        
+            lastGrappleInputTime = Time.time;        
         }
 
         if(!isGrounded && Time.time - lastGrappleInputTime <= grappleInputBufferTime)
@@ -73,8 +83,8 @@ public class PlayerCtrl : MonoBehaviour
         }
 
         // 대쉬
-        if(!isGrounded && isJumping && !hasDashed && Input.GetMouseButtonDown(0))
-        {            
+        if (!isGrounded && isJumping && !hasDashed && Input.GetMouseButtonDown(1))
+        {
             StartCoroutine(Dash());
         }
 
@@ -93,14 +103,10 @@ public class PlayerCtrl : MonoBehaviour
             isCharging = true;
         }
         // 공중에서 점프 중 마우스 클릭 (점프 추가 오브젝트)
-        else if(Input.GetMouseButtonDown(1) && !isGrounded && canAirJump)
-        {
-            // 공중 점프 수행
-            float jumpForce = minJumpForce;
-            float horizontalJumpForce = maxJumpForce * horizontalJumpForceMultiplier;
-
+        else if(Input.GetMouseButtonDown(0) && !isGrounded && canAirJump)
+        {          
             rb.velocity = Vector2.zero;
-            rb.AddForce(new Vector2(horizontalJumpForce, jumpForce));
+            rb.AddForce(new Vector2(horizontalJumpInteractForce, verticalJumpInteractForce));
 
             isJumping = true;
             canAirJump = false;
@@ -239,6 +245,10 @@ public class PlayerCtrl : MonoBehaviour
             canAirJump = false;
         }
     }
+
+
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Ground"))

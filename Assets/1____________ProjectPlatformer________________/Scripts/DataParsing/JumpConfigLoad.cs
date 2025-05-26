@@ -47,6 +47,11 @@ public class JumpConfigLoad : MonoBehaviour
             {
                 float.TryParse(row[4], out config.Multiplier);      // 다섯번째 열
             }
+            if (config.Type == "AirJump")
+            {
+                float.TryParse(row[3], out config.ForceValue);
+                float.TryParse(row[4], out config.Multiplier);
+            }
 
             // Dictionary 에 저장 (중복 Name 시 덮어쓰기)
             configDic[config.Name] = config;

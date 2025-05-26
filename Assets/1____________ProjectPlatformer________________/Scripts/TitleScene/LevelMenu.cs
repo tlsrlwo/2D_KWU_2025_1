@@ -12,12 +12,12 @@ public class LevelMenu : MonoBehaviour
     private void Awake()
     {
         ButtonsArray();
-
     }
 
-    private void Update()
+    public void OpenLevel(int levelNum)
     {
-        
+        string levelName = "Level" + levelNum;
+        SceneManager.LoadScene(levelName);
     }
 
     public void ButtonsArray()

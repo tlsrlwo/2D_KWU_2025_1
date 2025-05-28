@@ -72,6 +72,8 @@ public class PlayerCtrl : MonoBehaviour
 
     void Update()
     {
+        if (GamePauseManager.Instance.isPaused) return;
+        
         Move();
 
         if(Input.GetKeyDown(KeyCode.Space))

@@ -13,7 +13,8 @@ public class PlayerCtrl : MonoBehaviour
     private float           clickStartTime;                                 // 클릭 시간(Time.time)
     
     [Header("점프플레이트")]
-    public float            jumpPlateForceMultiplier = 1.5f;                // 점프 플레이트 점프 힘 배수
+    public float            jumpPlateForceMultiplier;                // 점프 플레이트 점프 힘 배수
+    public float            jumpPlateStrongForceMultiplier;          // 점프 플레이트(강한거) 힘 배수
 
     [Header("대쉬")]
     public float            dashForce;
@@ -48,14 +49,20 @@ public class PlayerCtrl : MonoBehaviour
         currentGravityScale = rb.gravityScale;
 
         // 데이터 파싱을 위한 부분
+        // 플레이어
         if (JumpConfigLoad.configDic.TryGetValue("PlayerMin", out var minConfig))
             minJumpForce = minConfig.ForceValue;
         if (JumpConfigLoad.configDic.TryGetValue("PlayerMax", out var maxConfig))
             maxJumpForce = maxConfig.ForceValue;  
 
+        // 점프 발판
         if (JumpConfigLoad.configDic.TryGetValue("JumpPlate", out var plateConfig))
             jumpPlateForceMultiplier = plateConfig.Multiplier;
 
+        if(JumpConfigLoad.configDic.TryGetValue("JumpPlateStrong", out var strongPlateConfig))
+            jumpPlateStrongForceMultiplier = strongPlateConfig.Multiplier;
+
+        // 공중 점프 상호작용
         if (JumpConfigLoad.configDic.TryGetValue("AirJump", out var airJumpConfig))
         {
             verticalJumpInteractForce = airJumpConfig.ForceValue;
@@ -233,7 +240,14 @@ public class PlayerCtrl : MonoBehaviour
             isGrounded = false;                                                         // 점프 후 땅에서 떨어짐
             isJumping = true;
         }
-        if(other.gameObject.CompareTag("AirJump"))
+        if (other.gameObject.CompareTag("JumpPlateStrong"))
+        {
+            float jumpForce = maxJumpForce * jumpPlateStrongForceMultiplier;
+            rb.AddForce(Vector2.up * jumpForce);
+            isGrounded = false;
+            isJumping = true;
+        }
+        if (other.gameObject.CompareTag("AirJump"))
         {
             canAirJump = true;
         }
@@ -245,9 +259,6 @@ public class PlayerCtrl : MonoBehaviour
             canAirJump = false;
         }
     }
-
-
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

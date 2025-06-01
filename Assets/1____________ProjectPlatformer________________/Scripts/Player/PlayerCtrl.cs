@@ -137,6 +137,9 @@ public class PlayerCtrl : MonoBehaviour
             isCharging = false;
             isGrounded = false;
             isJumping = true;
+
+            // 타이머 최초실행
+            TimerManager.Instance.StartTimer();
         }
     }
 

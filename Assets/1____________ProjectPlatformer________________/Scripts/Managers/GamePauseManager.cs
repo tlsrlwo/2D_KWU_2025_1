@@ -96,6 +96,15 @@ public class GamePauseManager : MonoBehaviour
 
         pauseUI.SetActive(false);
     }
+
+    public void RetryGame()
+    {
+        string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(currentSceneName);
+
+        if (TimerManager.Instance != null)
+            TimerManager.Instance.ResetGame();
+    }
     public void MainMenuBTN()
     {
         Time.timeScale = 1f;

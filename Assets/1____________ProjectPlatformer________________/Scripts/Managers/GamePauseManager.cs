@@ -101,9 +101,12 @@ public class GamePauseManager : MonoBehaviour
     {
         string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         UnityEngine.SceneManagement.SceneManager.LoadScene(currentSceneName);
+        
 
         if (TimerManager.Instance != null)
+        {           
             TimerManager.Instance.ResetGame();
+        }
     }
     public void MainMenuBTN()
     {
@@ -113,7 +116,14 @@ public class GamePauseManager : MonoBehaviour
             Destroy(pauseUI);
             pauseUI = null;
         }
+
         SceneManager.LoadScene("Title_Scene");
+        
+        if (TimerManager.Instance != null)
+        {
+            TimerManager.Instance.ResetGame();
+        }
+
     }
     public void ExitGameBTN()
     {

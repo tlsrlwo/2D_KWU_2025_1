@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TimerManager : MonoBehaviour
 {
@@ -63,6 +64,7 @@ public class TimerManager : MonoBehaviour
         hasStarted = false;
         // 플레이어 위치 리셋 로직 등 필요
     }
+
 
     public float GetTime() => timer;
 }

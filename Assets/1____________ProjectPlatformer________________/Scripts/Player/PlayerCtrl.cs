@@ -38,13 +38,15 @@ public class PlayerCtrl : MonoBehaviour
     
     [Header("컴포넌트")]
     [SerializeField] private Rigidbody2D     rb;                                             // 플레이어 rigidbody
-    [SerializeField] private TrailRenderer   tr;                                             // 대쉬           
+    [SerializeField] private TrailRenderer   tr;                                             // 대쉬
+    [SerializeField] private Animator        anim;                                                                                             
     [SerializeField] private GrapplingSystem grapplingSystem;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         tr = GetComponent<TrailRenderer>();
+        anim = GetComponentInChildren<Animator>();
         grapplingSystem = GetComponent<GrapplingSystem>();       
         currentGravityScale = rb.gravityScale;
 
@@ -75,6 +77,8 @@ public class PlayerCtrl : MonoBehaviour
         if (GamePauseManager.Instance.isPaused) return;
         
         Move();
+
+        anim.SetBool("isJumping", isJumping);
 
         if(Input.GetKeyDown(KeyCode.Space))
         {

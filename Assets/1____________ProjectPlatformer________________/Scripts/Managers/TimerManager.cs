@@ -8,7 +8,7 @@ public class TimerManager : MonoBehaviour
 {
    public static TimerManager Instance { get; private set; }
 
-    [SerializeField] private TextMeshProUGUI timerText;
+    //[SerializeField] private TextMeshProUGUI timerText;
     
     [SerializeField]private float timer;
     private bool isPlaying;
@@ -33,10 +33,10 @@ public class TimerManager : MonoBehaviour
         {
             timer += Time.deltaTime;
         }
-        if (timerText != null)
-        {
-            timerText.text = timer.ToString("F2") + "sec";
-        }
+        //if (timerText != null)
+        //{
+        //    timerText.text = timer.ToString("F2") + "sec";
+        //}
     }
 
     // 최초 타이머 시작

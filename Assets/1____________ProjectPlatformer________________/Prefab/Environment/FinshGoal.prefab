@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5719781708861606975}
   m_Layer: 0
   m_Name: FinshGoal
-  m_TagString: Untagged
+  m_TagString: FinishGoal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19331d1ef7a3eca4fb58860ace1e0eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finishUI: {fileID: 0}
 --- !u!1 &9113556469955719279
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Transform startTransform;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject finishGoal;
 
    public static GameManager Instance { get; private set; }
 
@@ -21,23 +23,37 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    private void Start()
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+    }
+    private void OnDestroy()
     {
-        if(startTransform == null)
-        {
-            //startTransform = 2D 게임 만든거 참고해서 다시 하기
-        }
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
-        if(player == null)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        //finishGoal = GameObject.FindGameObjectWithTag("FinishGoal");
+        
+    }
+
+    private void Update()
+    {
+        
+        if (player != null)
         {
-            player = Instantiate(player);
-            player.name = "Player";
-            player.tag = "Player";
-            player.transform.position = startTransform.transform.position;
+            if (player.transform.position.y <= -20f)
+            {
+                GamePauseManager.Instance.PauseGame();
+            }
         }
     }
 
+    private void InvokeMethod()
+    {
+        Debug.Log("플레이어가 죽음");
+    }
 
 }

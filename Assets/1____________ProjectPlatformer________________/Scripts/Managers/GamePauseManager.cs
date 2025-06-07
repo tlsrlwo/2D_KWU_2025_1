@@ -78,6 +78,13 @@ public class GamePauseManager : MonoBehaviour
             }
         }
     }
+
+    public void FinishLevel()
+    {
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+    
     public void PauseGame()
     {
         if (!isAvailable || pauseUI == null) return;
@@ -107,6 +114,10 @@ public class GamePauseManager : MonoBehaviour
         {           
             TimerManager.Instance.ResetGame();
         }
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.finishUI.SetActive(false);
+        }
     }
     public void MainMenuBTN()
     {
@@ -124,6 +135,10 @@ public class GamePauseManager : MonoBehaviour
             TimerManager.Instance.ResetGame();
         }
 
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.finishUI.SetActive(false);
+        }
     }
     public void ExitGameBTN()
     {

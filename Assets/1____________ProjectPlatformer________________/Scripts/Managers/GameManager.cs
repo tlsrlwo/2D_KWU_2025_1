@@ -3,14 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Transform startTransform;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject finishGoal;
+    //[SerializeField] private GameObject finishGoal;
+
+    [SerializeField] private FinishFlag finishFlag;
+    public GameObject finishUI;
 
    public static GameManager Instance { get; private set; }
+
+ 
 
     private void Awake()
     {
@@ -18,6 +24,19 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            if (finishUI != null)
+            {
+                finishUI = Instantiate(finishUI);
+                finishUI.name = "finishUI";
+                
+                finishUI.SetActive(false);
+                DontDestroyOnLoad(finishUI);
+            }
+            else
+            {
+                Debug.LogError("[GamePauseManager] Pause UI Prefab이 할당되지 않았습니다!");
+            }
         }
         else
         {
@@ -35,6 +54,11 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        if(finishUI != null)
+        {
+            finishUI.SetActive(false);
+        }
+        
         //finishGoal = GameObject.FindGameObjectWithTag("FinishGoal");
         
     }
@@ -49,6 +73,16 @@ public class GameManager : MonoBehaviour
                 GamePauseManager.Instance.PauseGame();
             }
         }
+
+        if (finishFlag != null && finishFlag.isFinished)
+        {
+            finishUI.SetActive(true);
+        }
+    }
+
+    public void RegisterFinishFlag(FinishFlag flag)
+    {
+        finishFlag = flag;
     }
 
     private void InvokeMethod()

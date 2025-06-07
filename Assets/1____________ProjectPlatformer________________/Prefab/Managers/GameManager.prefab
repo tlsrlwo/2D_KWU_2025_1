@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTransform: {fileID: 0}
   player: {fileID: 0}
+  finishFlag: {fileID: 0}
+  finishUI: {fileID: 3946837774345769115, guid: 0b096d70a51638648b53b8fef173de88, type: 3}

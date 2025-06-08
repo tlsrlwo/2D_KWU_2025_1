@@ -14,6 +14,8 @@ public class GamePauseManager : MonoBehaviour
 
     public static GamePauseManager Instance { get; private set; }           // 싱글톤으로 플레이어 스크립트에서 참조할 것.
 
+    [SerializeField] private FinishFlag finish;
+
     private void Awake()
     {
         if(Instance == null)
@@ -59,6 +61,11 @@ public class GamePauseManager : MonoBehaviour
         if (pauseUI != null)
             pauseUI.SetActive(false);
 
+       /* if(GameManager.Instance.finishUI != null)
+        {
+            GameManager.Instance.finishUI.SetActive(false);
+        }*/
+
         Time.timeScale = 1f; // 씬 진입 시 타임스케일 초기화
     }
 
@@ -77,6 +84,11 @@ public class GamePauseManager : MonoBehaviour
                 PauseGame();
             }
         }
+    }
+
+    public void RegisterFinishFlag(FinishFlag flag)
+    {
+        finish = flag;
     }
 
     public void FinishLevel()
@@ -114,10 +126,9 @@ public class GamePauseManager : MonoBehaviour
         {           
             TimerManager.Instance.ResetGame();
         }
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.finishUI.SetActive(false);
-        }
+
+        //FinishFlag.Instance.isFinished = false;
+        finish.isFinished = false;
     }
     public void MainMenuBTN()
     {
@@ -135,10 +146,8 @@ public class GamePauseManager : MonoBehaviour
             TimerManager.Instance.ResetGame();
         }
 
-        if(GameManager.Instance != null)
-        {
-            GameManager.Instance.finishUI.SetActive(false);
-        }
+        //FinishFlag.Instance.isFinished = false;
+        finish.isFinished = false;
     }
     public void ExitGameBTN()
     {

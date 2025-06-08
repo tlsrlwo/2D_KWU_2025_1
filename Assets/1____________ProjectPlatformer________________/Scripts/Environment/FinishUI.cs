@@ -13,9 +13,12 @@ public class FinishUI : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    
+    
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        Destroy(gameObject);
     }
 
 
@@ -23,7 +26,6 @@ public class FinishUI : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
        gameObject.SetActive(false);
-
     }
 
 

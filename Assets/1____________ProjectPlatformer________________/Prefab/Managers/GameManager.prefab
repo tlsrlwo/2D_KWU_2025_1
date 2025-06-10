@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4caa9410c12a52d4cb49607bdc64157f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startTransform: {fileID: 0}
   player: {fileID: 0}
   finishFlag: {fileID: 0}
+  finishUiPrefab: {fileID: 3946837774345769115, guid: 0b096d70a51638648b53b8fef173de88, type: 3}
   finishUI: {fileID: 3946837774345769115, guid: 0b096d70a51638648b53b8fef173de88, type: 3}

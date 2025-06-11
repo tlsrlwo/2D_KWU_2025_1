@@ -9,10 +9,12 @@ EditorBuildSettings:
     path: Assets/1____________ProjectPlatformer________________/Scenes/Title_Scene.unity
     guid: 992b0b815282cbd4fa22a330c47ead67
   - enabled: 1
-    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level1.unity
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      1.unity
     guid: 18b1b8f7d5b41834ea9d00df17494c5b
   - enabled: 1
-    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level2.unity
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      3.unity
     guid: 0bb8b23f502665948ba0bff347ce5b10
   - enabled: 1
     path: Assets/1____________ProjectPlatformer________________/Scenes/LogicTestingScene.unity

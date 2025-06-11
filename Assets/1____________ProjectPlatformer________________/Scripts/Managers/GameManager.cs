@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public GameObject finishUI;
     private bool isAvailable;
 
+    private bool isForPresentation;
+
    public static GameManager Instance { get; private set; }
      
 
@@ -60,6 +62,9 @@ public class GameManager : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 
         isAvailable = scene.name != ("Title_Scene");
+        isForPresentation = scene.name == ("Level 10");
+
+        
 
         if(finishUI != null)
         {
@@ -71,12 +76,16 @@ public class GameManager : MonoBehaviour
     }
 
     private void Update()
-    {        
+    {
         if (player != null)
         {
             if (player.transform.position.y <= -20f)
             {
                 GamePauseManager.Instance.PauseGame();
+            }
+            if (SceneManager.GetActiveScene().name == ("Level 10") && player.transform.position.y <= -15f)
+            {
+                player.transform.position = new Vector2(93.86f, 33.6f);
             }
         }
 

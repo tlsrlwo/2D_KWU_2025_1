@@ -14,8 +14,40 @@ EditorBuildSettings:
     guid: 18b1b8f7d5b41834ea9d00df17494c5b
   - enabled: 1
     path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      2.unity
+    guid: 6988f14d71e1b604cb9665b3201212b9
+  - enabled: 1
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
       3.unity
     guid: 0bb8b23f502665948ba0bff347ce5b10
+  - enabled: 1
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      4.unity
+    guid: 97d73b7693e4734488f853774c5f4cb6
+  - enabled: 1
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      5.unity
+    guid: da8bf735b5406f543b100b1d9dc034d1
+  - enabled: 1
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      6.unity
+    guid: 657f70c290b482242b938bc5299bb4b2
+  - enabled: 1
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      7.unity
+    guid: 07d95ea2c9819ac4388743b85108d0be
+  - enabled: 1
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      8.unity
+    guid: dd780d6ab9cf0af4fb135a0367d9f896
+  - enabled: 1
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      9.unity
+    guid: 6ad6b3c5dd372ed4cbb3d68e6af7f1cf
+  - enabled: 1
+    path: Assets/1____________ProjectPlatformer________________/Scenes/Levels/Level
+      10.unity
+    guid: 3dbb7f572d1d117459242958a96b3450
   - enabled: 1
     path: Assets/1____________ProjectPlatformer________________/Scenes/LogicTestingScene.unity
     guid: 837f936b0726df94f9b217c846b50f39

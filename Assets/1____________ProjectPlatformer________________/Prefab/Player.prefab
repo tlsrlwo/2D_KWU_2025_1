@@ -71,7 +71,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.012263417, y: 0.024618834}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -346,7 +346,7 @@ DistanceJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 11.366042
+  m_Distance: 8.023223
   m_MaxDistanceOnly: 0
 --- !u!114 &1553682103433838092
 MonoBehaviour:
@@ -373,6 +373,7 @@ MonoBehaviour:
   lastGrappleInputTime: -1
   rb: {fileID: 0}
   tr: {fileID: 0}
+  anim: {fileID: 0}
   grapplingSystem: {fileID: 0}
 --- !u!114 &8946788948792912602
 MonoBehaviour:

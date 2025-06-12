@@ -1,6 +1,6 @@
 Number,Name,Type,ForceValue,Multiplier
 1,PlayerMin,Player,500,
 2,PlayerMax,Player,1500,
-3,JumpPlate,JumpPlate,,1.3
-4,JumpPlateStrong,JumpPlate,,1.5
+3,JumpPlate,JumpPlate,,3
+4,JumpPlateStrong,JumpPlate,,4
 5,AirJump,AirJump,1000,0.5

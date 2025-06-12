@@ -244,15 +244,21 @@ public class PlayerCtrl : MonoBehaviour
     {
         if (other.gameObject.CompareTag("JumpPlate"))
         {
-            float jumpForce = maxJumpForce * jumpPlateForceMultiplier;                  // 최대점프값에 발판값으로 증가
-            rb.AddForce(Vector2.up * jumpForce);                                        // 새로운 jumpForce변수값 적용
+            rb.velocity = Vector2.zero;
+
+            float horizontalForce = minJumpForce * horizontalJumpForceMultiplier;
+            float jumpForce = minJumpForce * jumpPlateForceMultiplier;                  // 최대점프값에 발판값으로 증가
+            rb.AddForce(new Vector2(horizontalForce, jumpForce));                                  // 새로운 jumpForce변수값 적용
             isGrounded = false;                                                         // 점프 후 땅에서 떨어짐
             isJumping = true;
         }
         if (other.gameObject.CompareTag("JumpPlateStrong"))
         {
-            float jumpForce = maxJumpForce * jumpPlateStrongForceMultiplier;
-            rb.AddForce(Vector2.up * jumpForce);
+            rb.velocity = Vector2.zero;
+
+            float horizontalForce = minJumpForce * horizontalJumpForceMultiplier;
+            float jumpForce = minJumpForce * jumpPlateStrongForceMultiplier;
+            rb.AddForce(new Vector2(horizontalForce, jumpForce));
             isGrounded = false;
             isJumping = true;
         }

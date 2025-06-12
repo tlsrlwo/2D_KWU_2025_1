@@ -85,7 +85,8 @@ public class GameManager : MonoBehaviour
             }
             if (SceneManager.GetActiveScene().name == ("Level 10") && player.transform.position.y <= -15f)
             {
-                player.transform.position = new Vector2(93.86f, 40.6f);
+                //player.transform.position = new Vector2(93.86f, 40.6f);
+                Debug.Log("정말 못하시네요");
             }
         }
 

@@ -133,7 +133,15 @@ public class PlayerCtrl : MonoBehaviour
             
             float jumpForce = Mathf.Lerp(minJumpForce, maxJumpForce, normalizedPower);
 
+            float minHorizontalForce = 260f;
+
             float horizontalJumpForce = jumpForce * horizontalJumpForceMultiplier;
+            Debug.Log(horizontalJumpForce.ToString());
+            if(horizontalJumpForce < minHorizontalForce)
+            {
+                horizontalJumpForce = minHorizontalForce;
+                Debug.Log(("¹Ù²ï °ª : ") + horizontalJumpForce.ToString());
+            }
             float verticalJumpForce = jumpForce;
 
             rb.AddForce(new Vector2(horizontalJumpForce, verticalJumpForce));
